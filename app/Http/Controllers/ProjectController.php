@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProjectController extends Controller
 {
@@ -14,8 +16,19 @@ class ProjectController extends Controller
      */
     public function index()
     {
+         // $project->save();
+         $user = User::find(Auth::id());
+         dd($user->projects);
+        // $project = new Project;
+        // $project->name = 'God of War';
+        // $project->description = "23123";
+        // $project->creator_id = 0;
+       
+    
+        // $project->users()->attach($user);
         
-       dd(Project::all()->first()->creator);
+    //    dd(Project::all()[1]->users);
+
     }
 
     /**

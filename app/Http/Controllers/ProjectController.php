@@ -18,7 +18,11 @@ class ProjectController extends Controller
     {
          // $project->save();
          $user = User::find(Auth::id());
-         dd($user->projects);
+          //getting the current logged in user
+       
+        //   dump($user->givePermissionsTo('edit-users'));// will return permission, if not null
+          dump($user->can('edit-users'));
+        //  dd($user->projects);
         // $project = new Project;
         // $project->name = 'God of War';
         // $project->description = "23123";

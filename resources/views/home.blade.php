@@ -13,7 +13,16 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @role('developer')
 
+                    Hello developer
+                   
+                   @endrole
+                   @role('manager')
+
+                    Hello manager
+
+                    @endrole
                     {{ __('You are logged in!') }}
                 </div>
             </div>

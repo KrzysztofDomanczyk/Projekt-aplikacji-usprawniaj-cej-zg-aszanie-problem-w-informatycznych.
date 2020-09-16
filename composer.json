@@ -15,7 +15,8 @@
         "laravel/framework": "^7.24",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.2",
-        "php-imap/php-imap": "^4.1"
+        "php-imap/php-imap": "^4.1",
+        "webklex/laravel-imap": "^1.6"
     },
     "require-dev": {
         "facade/ignition": "^2.0",

@@ -26,5 +26,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('projects', 'ProjectController');
     Route::get('/roles', 'PermissionController@Permission');
+    Route::get('/unseen-message', 'TicketController@getUnSeenMail')->name('getUnSeenMail');
 });
 

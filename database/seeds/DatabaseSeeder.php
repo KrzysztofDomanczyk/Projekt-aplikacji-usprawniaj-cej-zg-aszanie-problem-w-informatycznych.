@@ -1,5 +1,6 @@
 <?php
 
+use App\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -26,6 +27,12 @@ class DatabaseSeeder extends Seeder
             'username_imap' => 'ithelperdomanczyk@gmail.com',
             'password_imap' => 'Krzysiek123456',
         ]);
+        // $user  = User::find(Auth::id());
+  
+        // $user->projects()->attach(1);
+        $user  = User::find(1);
+        $user->projects()->attach(1);
+
         DB::table('users')->insert([
             'name' => 'Krzys12312312312iek',
             'email' => 'kylo199721312312120@gmail.com',

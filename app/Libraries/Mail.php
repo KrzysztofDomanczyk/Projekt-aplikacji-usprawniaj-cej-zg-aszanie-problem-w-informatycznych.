@@ -12,9 +12,23 @@ class Mail
     private $from;
     private $body;
  
-    public function __construct()
+    public function __construct($oMessage)
     {
-        
+        $this->setUid($oMessage->getUid());
+        $this->setBody($this->getAppropriateBody($oMessage));
+        $this->setDate($oMessage->getDate());
+        $this->setFrom($oMessage->getFrom());
+        $this->setSubject($oMessage->getSubject());
+    }
+
+    private function getAppropriateBody($oMessage)
+    {
+        return $oMessage->hasHTMLBody() ? $oMessage->getHTMLBody(true) : $oMessage->getTextBody(true) ;
+    }
+
+    public function getUrlBodyContent()
+    {
+        return route('mailBody', ['id' => $this->uid]);
     }
 
     /**

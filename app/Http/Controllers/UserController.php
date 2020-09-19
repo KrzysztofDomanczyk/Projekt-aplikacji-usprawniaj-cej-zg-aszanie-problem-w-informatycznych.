@@ -18,6 +18,6 @@ class UserController extends Controller
     {
         $request->except('_token');
         $user = User::whereId(Auth::id())->update($request->except('_token'));
-        return redirect()->back()->with('message', 'Imap data saved correctly');
+        return redirect()->back()->with('message', 'IMAP data saved correctly');
     }
 }

@@ -117,7 +117,7 @@ return [
     */
     'options' => [
         'delimiter' => '/',
-        'fetch' => \Webklex\IMAP\IMAP::FT_UID,
+        'fetch' => \Webklex\IMAP\IMAP::FT_PEEK,
         'fetch_body' => true,
         'fetch_attachment' => true,
         'fetch_flags' => true,

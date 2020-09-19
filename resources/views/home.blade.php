@@ -30,7 +30,7 @@
                         <div class="card">
                           <div class="card-header" id="headingOne">
                             <h5 class="mb-0">
-                              <a class="btn w-100" data-toggle="collapse" data-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapseOne">
+                              <div class="btn w-100" data-toggle="collapse" data-target="#collapse{{$loop->index}}" aria-expanded="true" aria-controls="collapseOne">
                                  <div class="row">
                                         <div class="col-12 col-md-8">
                                                 <strong>Subject:</strong> {!!$email->getSubject()!!}  
@@ -39,11 +39,11 @@
                                                         <small>{{$email->getDate()->toString()}}</small>
                                                 </div>
                                         </div>
-                                        <div  class="col-12 col-md-6">
-                                              
+                                        <div  class="col-12 col-md-4">
+                                              <a class="btn btn-success" href="{{route('createTicket', ['id' => $email->getUid()])}}">Create ticket</a>
                                         </div>
                                  </div>
-                              </a>
+                                </div>
                             </h5>
                           </div>
                       

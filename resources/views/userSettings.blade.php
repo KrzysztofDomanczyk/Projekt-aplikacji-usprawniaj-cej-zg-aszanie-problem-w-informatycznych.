@@ -13,6 +13,13 @@
                             {{ session()->get('message') }}
                         </div>
                     @endif
+                    @if (session()->has('error'))
+                        <div class="alert alert-danger">
+                            <ul>
+                                <li>{!! session()->get('error') !!}</li>
+                            </ul>
+                        </div>
+                    @endif
                         <h5 class="card-title">IMAP settings</h5>
                     <form action="{{route('changeImap')}}" method="POST">
                             @csrf
@@ -37,14 +44,10 @@
                             Ustawienia użytkownika
                         </div>
                     @endif
-                  
                 </div>
             </div>
             <div class="card mt-4">
-                
-
                 <div class="card-body">
-                        
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

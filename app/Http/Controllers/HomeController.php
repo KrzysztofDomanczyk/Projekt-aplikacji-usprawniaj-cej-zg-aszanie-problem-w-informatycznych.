@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Libraries\Mail\EmailGetter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\Email;
 
 class HomeController extends Controller
@@ -25,8 +26,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $emailGetter = new EmailGetter();
-        $emails = $emailGetter->getUnseenMessages();        
+
+      
+            $emailGetter = new EmailGetter(Auth::user());
+            $emails = $emailGetter->getUnseenMessages();
+       
+                
         return view('home', ['emails' => $emails]);
     }
 }

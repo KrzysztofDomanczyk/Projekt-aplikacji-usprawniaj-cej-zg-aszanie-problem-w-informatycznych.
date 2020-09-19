@@ -11,6 +11,7 @@ use SSilence\ImapClient\ImapClient as Imap;
 use PhpImap\Mailbox;
 use PHPMailer\PHPMailer\Exception;
 use Webklex\IMAP\Client;
+use Illuminate\Support\Facades\Redirect;
 
 
 
@@ -20,18 +21,31 @@ class EmailGetter
 
     private $oClient;
     private $mainFolder = "INBOX";
+    private $oFolder;
 
-    public function __construct()
+    public function __construct($user)
     {
         $this->oClient = new Client([
-            'host'          => 'imap.gmail.com',
+            'host'          => "$user->host_imap",
             'port'          => 993,
             'encryption'    => 'ssl',
             'validate_cert' => true,
-            'username'      => 'ithelperdomanczyk@gmail.com',
-            'password'      => 'Krzysiek123456',
+            'username'      => "$user->username_imap",
+            'password'      => "$user->password_imap",
             'protocol'      => 'imap'
         ]);  
+
+        try {
+            $this->oClient->connect();
+        } catch (\Throwable  $e) {
+            Redirect::to(route('userSettings'))
+            ->with('error', 'Error IMAP connection - please check IMAP credentials or contact with support - k.domanczyk@gmail.com <br> '. $e->getMessage() .'')
+            ->send();
+        }
+      
+      
+        $aFolder = $this->oClient->getFolders();
+        $this->oFolder =$this->getAppropriateFolder($aFolder);
     }
 
     public function getAppropriateFolder($aFolder)
@@ -46,28 +60,23 @@ class EmailGetter
     public function getUnseenMessages()
     {
         $emails = [];
-        $this->oClient->connect();
-        $aFolder = $this->oClient->getFolders();
-        $oFolder =$this->getAppropriateFolder($aFolder);
         try {
-            $aMessage = $oFolder->messages()->unseen()->leaveUnread()->get();
+            $aMessage = $this->oFolder->messages()->unseen()->leaveUnread()->get();
         } catch (\Throwable  $e) {
              dd($e->getMessage()); 
         }
         foreach ($aMessage as $oMessage) {
-            $email = new Mail;
-            $email->setUid($oMessage->getUid());
-            $email->setBody($this->getAppropriateBody($oMessage));
-            $email->setDate($oMessage->getDate());
-            $email->setFrom($oMessage->getFrom());
-            $email->setSubject($oMessage->getSubject());
+            $email = new Mail($oMessage);
             array_push ($emails, $email);
         }
         return $emails;
     }
 
-    private function getAppropriateBody($oMessage)
+    public function getMessageByUid($uid)
     {
-        return $oMessage->hasHTMLBody() ? $oMessage->getHTMLBody(true) : $oMessage->getTextBody(true) ;
+        
+        $message = $this->oFolder->getMessage($uid);
+        $email = new Mail($message);
+        return $email;
     }
 }

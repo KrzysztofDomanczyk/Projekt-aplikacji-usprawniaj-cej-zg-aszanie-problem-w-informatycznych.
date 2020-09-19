@@ -67,7 +67,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Description</label>
-                            <input type="text" class="form-control" name="descrpiton" id="exampleInputEmail1"
+                            <input type="text" class="form-control" name="description" id="exampleInputEmail1"
                                 aria-describedby="emailHelp" value="Ticket descripiton Number {{$email->getUid()}}">
                         </div>
                         <div class="row">

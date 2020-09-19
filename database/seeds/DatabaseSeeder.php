@@ -1,6 +1,7 @@
 <?php
 
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -40,6 +41,18 @@ class DatabaseSeeder extends Seeder
             'host_imap' => 'imap.gmail.com',
             'username_imap' => 'ithelperdomanczyk@gmail.com',
             'password_imap' => 'Krzysiek123456',
+        ]);
+
+        DB::table('tickets')->insert([
+            'name' => Str::random(10),
+            'description' => Str::random(50),
+            'body_mail' => Str::random(2220),
+            'status' => 'To do',
+            'subject_mail' => Str::random(20),
+            'start_date' => Carbon::today(),
+            'end_date' => Carbon::today(),
+            'project_id' => '1',
+            'creator_id' => 1,
         ]);
     }
 }

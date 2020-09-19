@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Libraries\Mail\EmailGetter;
+use App\Project;
+use App\Ticket;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +19,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        //
+        
     }
 
     /**
@@ -44,8 +46,9 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        
-        dd($request->all());
+        ;
+        $ticket = Ticket::create($request->except('_token') + ['creator_id' => Auth::id()]);
+        dd($ticket);
     }
 
     /**

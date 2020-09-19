@@ -4,30 +4,26 @@ namespace App\Libraries\Mail;
 // require_once "EmailGetter.php";
 // require_once "EmailSender.php";
 
-
-
-
+use App\Libraries\Mail;
 use SSilence\ImapClient\ImapClientException;
 use SSilence\ImapClient\ImapConnect;
 use SSilence\ImapClient\ImapClient as Imap;
 use PhpImap\Mailbox;
+use PHPMailer\PHPMailer\Exception;
 use Webklex\IMAP\Client;
+
+
 
 
 class EmailGetter
 {
 
-    private $_mailbox;
-    private $_username;
-    private $_password;
-    private $_encryption;
-    private $_imap;
+    private $oClient;
+    private $mainFolder = "INBOX";
 
     public function __construct()
     {
-
-
-        $oClient = new Client([
+        $this->oClient = new Client([
             'host'          => 'imap.gmail.com',
             'port'          => 993,
             'encryption'    => 'ssl',
@@ -35,32 +31,43 @@ class EmailGetter
             'username'      => 'ithelperdomanczyk@gmail.com',
             'password'      => 'Krzysiek123456',
             'protocol'      => 'imap'
-        ]);
-      
-        $oClient->connect();
-        $aFolder = $oClient->getFolders();
-        //Loop through every Mailbox
-        /** @var \Webklex\IMAP\Folder $oFolder */
+        ]);  
+    }
+
+    public function getAppropriateFolder($aFolder)
+    {
         foreach ($aFolder as $oFolder) {
-
-            //Get all Messages of the current Mailbox $oFolder
-            /** @var \Webklex\IMAP\Support\MessageCollection $aMessage */
-            $aMessage = $oFolder->messages()->all()->get();
-
-            /** @var \Webklex\IMAP\Message $oMessage */
-            foreach ($aMessage as $oMessage) {
-                echo $oMessage->getSubject() . '<br />';
-                echo 'Attachments: ' . $oMessage->getAttachments()->count() . '<br />';
-                echo $oMessage->getHTMLBody(true);
-
-                //Move the current Message to 'INBOX.read'
-                if ($oMessage->moveToFolder('INBOX.read') == true) {
-                    echo 'Message has ben moved';
-                } else {
-                    echo 'Message could not be moved';
-                }
+            if($oFolder->name == $this->mainFolder) {
+                return $oFolder;
             }
         }
-        dd($aFolder);
+    }
+
+    public function getUnseenMessages()
+    {
+        $emails = [];
+        $this->oClient->connect();
+        $aFolder = $this->oClient->getFolders();
+        $oFolder =$this->getAppropriateFolder($aFolder);
+        try {
+            $aMessage = $oFolder->messages()->unseen()->leaveUnread()->get();
+        } catch (\Throwable  $e) {
+             dd($e->getMessage()); 
+        }
+        foreach ($aMessage as $oMessage) {
+            $email = new Mail;
+            $email->setUid($oMessage->getUid());
+            $email->setBody($this->getAppropriateBody($oMessage));
+            $email->setDate($oMessage->getDate());
+            $email->setFrom($oMessage->getFrom());
+            $email->setSubject($oMessage->getSubject());
+            array_push ($emails, $email);
+        }
+        return $emails;
+    }
+
+    private function getAppropriateBody($oMessage)
+    {
+        return $oMessage->hasHTMLBody() ? $oMessage->getHTMLBody(true) : $oMessage->getTextBody(true) ;
     }
 }

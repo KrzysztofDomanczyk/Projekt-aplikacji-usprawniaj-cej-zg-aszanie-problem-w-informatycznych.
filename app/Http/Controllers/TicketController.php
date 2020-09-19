@@ -10,7 +10,8 @@ class TicketController extends Controller
     public function getUnSeenMail()
     {
         
-        $emails = new EmailGetter();
-        // dd($emails->getUnSeenMail());
+        $emailGetter = new EmailGetter();
+        $emails = $emailGetter->getUnseenMessages();
+        dd($emails);
     }
 }

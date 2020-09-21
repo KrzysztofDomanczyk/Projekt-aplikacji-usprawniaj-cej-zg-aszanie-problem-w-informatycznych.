@@ -46,7 +46,7 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        ;
+        
         $ticket = Ticket::create($request->except('_token') + ['creator_id' => Auth::id()]);
         dd($ticket);
     }

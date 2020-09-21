@@ -15,5 +15,17 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    return response()->json(Auth::id());
 });
+
+
+Route::middleware('auth:api')->get('/users', function (Request $request) {
+
+    return response()->json(['name' => Auth::User()->name]);
+
+});
+
+Route::middleware('auth:api')->post('/project/add-user', 'ProjectController@addUserToProject')->name('addUserToProject');
+Route::middleware('auth:api')->post('/project/delete-user', 'ProjectController@deleteUserToProject')->name('deleteUserToProject');
+Route::middleware('auth:api')->get('/project/users-list/{id}', 'ProjectController@userList')->name('userList');
+Route::middleware('auth:api')->get('/project/users-list/{id}', 'ProjectController@userList')->name('userList');

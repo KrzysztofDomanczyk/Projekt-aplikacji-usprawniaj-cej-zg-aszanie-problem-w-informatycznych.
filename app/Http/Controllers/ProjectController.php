@@ -30,9 +30,10 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($redirect = null)
     {
-        return view('project.form');
+        
+        return view('project.form', ['redirect' => $redirect]);
     }
 
     /**
@@ -43,9 +44,13 @@ class ProjectController extends Controller
      */
     public function store(Request $request)
     {
-        $project = Project::create($request->except('_token') + ['creator_id' => Auth::id()]);
+        $project = Project::create($request->except(['_token', 'redirect']) + ['creator_id' => Auth::id()]);
         $project->users()->attach(Auth::id());
-        return redirect(route('projects.index'))->with('success', 'Project created successfully');
+        if($request->input('redirect') == "new") {
+            return redirect(route('projects.index'))->with('success', 'Project created successfully');
+        } else {
+            return redirect(route('createTicket', ['id' => $request->input('redirect')]));
+        }
     }
 
     /**
@@ -56,8 +61,11 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        $project = Project::find($id);
-        return view('project.show', ['project' => $project]);
+        if (Auth::user()->isAttachedToProject($id)){
+            $project = Project::find($id);
+            return view('project.show', ['project' => $project]);
+        }
+        abort(404);
     }
 
     /**

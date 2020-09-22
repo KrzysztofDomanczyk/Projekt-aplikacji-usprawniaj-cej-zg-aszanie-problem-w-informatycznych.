@@ -21,22 +21,32 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                <form action="{{route('ticket.store')}}" method="POST">
-                    @csrf
+                    <form action="{{route('ticket.store')}}" method="POST">
+                        @csrf
                         <div class="form-group">
-                            <label for="project">Project</label>
+                            <label for="project">Project  </label>
                             <select name="project_id" class="form-control" id="project">
                                 @foreach($projects as $project)
                                 <option value="{{$project->id}}">{{$project->name}}</option>
                                 @endforeach
-
                             </select>
+                            @if(isset($email))
+                            <a href="{{route('projects.create', ['redirect' => $email->getUid() ])}}" class="btn btn-secondary d-block mt-3">+ Project not exist? Create new!</a>
+                            @else 
+                            <a href="{{route('projects.create')}}" class="btn btn-secondary d-block mt-3">+ Project not exist? Create new!</a>
+                            @endif
                         </div>
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Subject mail</label>
+                            @if(isset($email))
                             <input type="text" class="form-control" name="subject_mail" value="{{$email->getSubject()}}"
                                 id="exampleInputEmail1" aria-describedby="emailHelp">
+                            @else
+                            <input type="text" class="form-control" name="subject_mail" value="" id="exampleInputEmail1"
+                                aria-describedby="emailHelp">
+                            @endif
+
                         </div>
 
                         <div class="form-group">
@@ -47,15 +57,17 @@
                                             See body mail:
                                         </h5>
                                     </div>
-
+                                    @if(isset($email))
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion">
                                         <div class="card-body">
-                                        <input type="hidden" value="{{$email->getBody()}}" name="body_mail">
+                                            <input type="hidden" value="{{$email->getBody()}}" name="body_mail">
                                             <iframe src=" {{$email->getUrlBodyContent()}}" frameborder="0" class="w-100"
                                                 style="height:400px"></iframe>
+                                            
                                         </div>
                                     </div>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -63,24 +75,26 @@
                         <div class="form-group">
                             <label for="exampleInputEmail1">Ticket name</label>
                             <input type="text" class="form-control" name="name" id="exampleInputEmail1"
-                        aria-describedby="emailHelp" value="Ticket name Number {{$email->getUid()}}">
+                                aria-describedby="emailHelp" value="Ticket name Number ">
                         </div>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Description</label>
                             <input type="text" class="form-control" name="description" id="exampleInputEmail1"
-                                aria-describedby="emailHelp" value="Ticket descripiton Number {{$email->getUid()}}">
+                                aria-describedby="emailHelp" value="Ticket descripiton Number 1">
                         </div>
                         <div class="row">
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="startDate">Start date</label>
-                                    <input type="text" class="form-control" id="startDate" name="start_date" value="2020-09-11" placeholder="yyyy-mm-dd"></p>
+                                    <input type="text" class="form-control" id="startDate" name="start_date"
+                                        value="2020-09-11" placeholder="yyyy-mm-dd"></p>
                                 </div>
                             </div>
                             <div class="col-12 col-md-6">
                                 <div class="form-group">
                                     <label for="endDate">End date</label>
-                                    <input type="text" class="form-control" id="endDate" name="end_date" value="2020-11-11" placeholder="yyyy-mm-dd"></p>
+                                    <input type="text" class="form-control" id="endDate" name="end_date"
+                                        value="2020-11-11" placeholder="yyyy-mm-dd"></p>
                                 </div>
                             </div>
 

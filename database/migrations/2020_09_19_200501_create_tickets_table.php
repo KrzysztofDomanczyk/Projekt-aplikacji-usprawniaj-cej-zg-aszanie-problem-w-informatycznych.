@@ -18,9 +18,9 @@ class CreateTicketsTable extends Migration
             $table->timestamps();
             $table->string('name');
             $table->longText('description');
-            $table->longText('body_mail');
+            $table->longText('body_mail')->nullable();
             $table->string('status');
-            $table->string('subject_mail');
+            $table->string('subject_mail')->nullable();
             $table->date('start_date');
             $table->date('end_date');
             $table->integer('project_id')->references('id')->on('projects')->onDelete('cascade');

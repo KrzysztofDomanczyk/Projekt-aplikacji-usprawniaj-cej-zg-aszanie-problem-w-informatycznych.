@@ -26,15 +26,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/roles', 'PermissionController@Permission')->name('roles');
     Route::get('/unseen-message', 'TicketController@getUnSeenMail')->name('getUnSeenMail');
     Route::get('/user-settings', 'PageController@userSettings')->name('userSettings');
-    Route::get('/create-ticket/{id}', 'TicketController@create')->name('createTicket');
+    Route::get('/create-ticket/{id?}', 'TicketController@create')->name('createTicket');
     Route::get('/mail-body/{id}', 'TicketController@mailBody')->name('mailBody');
-
     Route::prefix('user-settings')->group(function () {
         Route::get('/', 'UserController@userSettings')->name('userSettings');
         Route::post('change-imap', 'UserController@changeImap')->name('changeImap');
     });
-
     Route::resource('ticket', 'TicketController');
-
+    Route::get('/projects/create/{redirect?}', 'ProjectController@create')->name('projects.create');
 });
 

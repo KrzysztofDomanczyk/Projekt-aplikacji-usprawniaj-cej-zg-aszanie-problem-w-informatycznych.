@@ -25,7 +25,7 @@
                                 <input type="text" class="form-control" name="description" value="Jakiś opis"
                                     id="description" aria-describedby="emailHelp">
                             </div>
-                        
+                            <input type="hidden" name="redirect" value="{{$redirect}}">
                             <button type="submit" class="btn btn-primary">Create</button>
                         </form>
 

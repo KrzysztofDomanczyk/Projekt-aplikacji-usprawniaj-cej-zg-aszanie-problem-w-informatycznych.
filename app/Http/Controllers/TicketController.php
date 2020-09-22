@@ -27,12 +27,14 @@ class TicketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id)
+    public function create($id = null)
     {
- 
-        $emailGetter = new EmailGetter(Auth::user());
-        $email = $emailGetter->getMessageByUid($id);
-         
+        $email = null;
+        if($id != null) {
+            $emailGetter = new EmailGetter(Auth::user());
+            $email = $emailGetter->getMessageByUid($id);
+        }
+       
         $projects = User::find(Auth::id())->projects;
 
         return view('ticket.form',['email' => $email, 'projects' => $projects]);
@@ -46,9 +48,8 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        
         $ticket = Ticket::create($request->except('_token') + ['creator_id' => Auth::id()]);
-        dd($ticket);
+        return redirect(route('projects.show', ['project' => $request->input('project_id')]));
     }
 
     /**

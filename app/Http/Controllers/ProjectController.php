@@ -62,7 +62,7 @@ class ProjectController extends Controller
     public function show($id)
     {
         if (Auth::user()->isAttachedToProject($id)){
-            $project = Project::find($id);
+            $project = Project::find($id);         
             return view('project.show', ['project' => $project]);
         }
         abort(404);
@@ -99,7 +99,13 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        
+        if($project->isOwner(Auth::id())) {
+            $project->deleteProject();
+           return redirect(route('projects.index'))->with('success', 'Project deleted');
+        }
+     
     }
 
     public function addUserToProject(Request $request)

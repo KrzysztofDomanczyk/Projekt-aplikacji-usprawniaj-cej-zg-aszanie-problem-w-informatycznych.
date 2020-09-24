@@ -67,5 +67,21 @@ class Project extends Model
         return $this->creator->id == $user;
     }
 
+    public function deleteProject()
+    {
+        $this->tickets()->delete();
+        $this->users()->detach();
+        $this->delete();
+    }
+
+    public function hasAccessToProject($projectId)
+    {
+        foreach ($this->projects as $project) {
+            if($project->id == $projectId){
+                return true;
+            }
+        }
+       return false;
+    }
     
 }

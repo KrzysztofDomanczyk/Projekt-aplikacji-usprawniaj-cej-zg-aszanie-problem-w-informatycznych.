@@ -22,9 +22,14 @@ class Ticket extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function project()
+
+    public function userHasAccess($user)
     {
-        return $this->belongsTo(Project::class);
+       return $user->isAttachedToProject($this->project_id);
     }
 
+    public function getUrlBody()
+    {
+        return route('ticket.body', ['id' => $this->id]);
+    }
 }

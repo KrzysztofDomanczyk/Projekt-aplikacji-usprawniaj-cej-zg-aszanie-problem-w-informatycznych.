@@ -66,12 +66,17 @@ class TicketController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $ticket
+     * @param  int  $project
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($ticket)
     {
-        //
+        $ticket = Ticket::where('id', $ticket)->get()->first();
+        if ($ticket->userHasAccess(Auth::user())) {
+            return view('ticket.edit', ['ticket' => $ticket, 'projects' => Auth::user()->projects]);
+        }
+        abort(404);
     }
 
     /**
@@ -83,7 +88,11 @@ class TicketController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $ticket = Ticket::where('id', $id)->get()->first();
+        if ($ticket->userHasAccess(Auth::user())) {
+            $ticket->update($request->except(['_token', '_method']));
+            return redirect(route('projects.show', ['project' => $ticket->project_id]))->with('success', 'Ticket updated');
+        }
     }
 
     /**
@@ -92,16 +101,31 @@ class TicketController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $ticket = Ticket::where('id', $request->input('ticketId'))->get()->first();
+        if ($ticket->userHasAccess(Auth::user())) {
+            $ticket->delete();
+            return redirect(route('projects.show', ['project' => $request->input('projectId')]))
+                    ->with('success', 'Ticket deleted');
+        }
     }
 
-    public function mailBody($id)
+    public function getMailBody($id)
     {
+        //obsłuzyc brak maila
         $emailGetter = new EmailGetter(Auth::user());
         $email = $emailGetter->getMessageByUid($id);
-
         return view('ticket.mail-body', ['email' => $email]);
     }
+
+    public function showBody($id)
+    {
+        $ticket = Ticket::where('id', $id)->get()->first();
+        if ($ticket->userHasAccess(Auth::user())) {
+            return view('ticket.body', ['ticket' => $ticket]);
+        }
+        
+    }
+
 }

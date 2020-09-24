@@ -229,6 +229,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Client' => Webklex\IMAP\Facades\Client::class,
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 

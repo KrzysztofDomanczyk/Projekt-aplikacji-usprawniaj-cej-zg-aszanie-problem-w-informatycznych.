@@ -1,0 +1,1 @@
+{!!$ticket->body_mail!!}

@@ -10903,3 +10903,9 @@ body {
   background-color: #2a4159 !important;
 }
 
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
+

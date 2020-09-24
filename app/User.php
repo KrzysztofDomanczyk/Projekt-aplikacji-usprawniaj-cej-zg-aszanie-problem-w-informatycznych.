@@ -54,14 +54,13 @@ class User extends Authenticatable
 
     public function isAttachedToProject($projectId)
     {
-        $this->projects;
-     
         foreach ($this->projects as $project) {
             if($project->id == $projectId){
                 return true;
             }
         }
-
        return false;
     }
+
+
 }

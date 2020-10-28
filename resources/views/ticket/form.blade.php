@@ -107,6 +107,10 @@
                                 <option>Completed</option>
                             </select>
                         </div>
+                        @if(isset($email))
+                        <input type="text" name="email_uid" value="{{$email->getUid()}}" hidden>
+                        <input type="text" name="email" value="{{$email->getNameFrom()}}" hidden>
+                        @endif
 
                         <button type="submit" class="btn btn-primary">Create</button>
                     </form>

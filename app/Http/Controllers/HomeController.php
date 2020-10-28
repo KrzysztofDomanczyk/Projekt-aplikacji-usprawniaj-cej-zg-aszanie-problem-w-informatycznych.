@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketCreated;
 use App\Libraries\Mail\EmailGetter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,12 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-
+  
       
             $emailGetter = new EmailGetter(Auth::user());
             $emails = $emailGetter->getUnseenMessages();
-       
-                
+           
+
         return view('home', ['emails' => $emails]);
     }
 }

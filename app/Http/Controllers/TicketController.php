@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\TicketCreated;
 use App\Libraries\Mail\EmailGetter;
 use App\Project;
 use App\Ticket;
@@ -34,7 +35,7 @@ class TicketController extends Controller
             $emailGetter = new EmailGetter(Auth::user());
             $email = $emailGetter->getMessageByUid($id);
         }
-       
+    
         $projects = User::find(Auth::id())->projects;
 
         return view('ticket.form',['email' => $email, 'projects' => $projects]);
@@ -47,8 +48,11 @@ class TicketController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    { 
         $ticket = Ticket::create($request->except('_token') + ['creator_id' => Auth::id()]);
+        if(isset($ticket->email_uid)) {
+            event(new TicketCreated($ticket));
+        }
         return redirect(route('projects.show', ['project' => $request->input('project_id')]));
     }
 

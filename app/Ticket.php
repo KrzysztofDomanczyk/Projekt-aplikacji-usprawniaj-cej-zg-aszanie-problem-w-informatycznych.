@@ -15,6 +15,7 @@ class Ticket extends Model
         'name', 'description', 'body_mail',
         'status', 'subject_mail', 'start_date',
         'end_date', 'project_id', 'creator_id',
+        'email_uid', 'email'
     ];
 
     public function creator()

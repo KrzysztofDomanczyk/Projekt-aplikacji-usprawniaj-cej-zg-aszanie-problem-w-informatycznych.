@@ -1,13 +1,10 @@
 <?php
 
 namespace App\Libraries\Mail;
-// require_once "EmailGetter.php";
+// require_once "IMAP.php";
 // require_once "EmailSender.php";
 
 use App\Libraries\Mail;
-use SSilence\ImapClient\ImapClientException;
-use SSilence\ImapClient\ImapConnect;
-use SSilence\ImapClient\ImapClient as Imap;
 use PhpImap\Mailbox;
 use PHPMailer\PHPMailer\Exception;
 use Webklex\IMAP\Client;
@@ -16,7 +13,7 @@ use Illuminate\Support\Facades\Redirect;
 
 
 
-class EmailGetter
+class IMAP
 {
 
     private $oClient;
@@ -78,5 +75,17 @@ class EmailGetter
         $message = $this->oFolder->getMessage($uid);
         $email = new Mail($message);
         return $email;
+    }
+
+    public function setSeenFlag($email_uid) : void
+    {
+        $oMessage = $this->oFolder->getMessage($email_uid);
+        $oMessage->setFlag(['Seen']);
+    }
+
+    public function setUnseenFlag($email_uid) : void
+    {
+        $oMessage = $this->oFolder->getMessage($email_uid);
+        $oMessage->setFlag(['Unseen']);
     }
 }

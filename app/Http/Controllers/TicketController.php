@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\TicketCreated;
-use App\Libraries\Mail\EmailGetter;
+use App\Libraries\Mail\IMAP;
 use App\Project;
 use App\Ticket;
 use App\User;
@@ -32,8 +32,8 @@ class TicketController extends Controller
     {
         $email = null;
         if($id != null) {
-            $emailGetter = new EmailGetter(Auth::user());
-            $email = $emailGetter->getMessageByUid($id);
+            $imap = new IMAP(Auth::user());
+            $email = $imap->getMessageByUid($id);
         }
     
         $projects = User::find(Auth::id())->projects;
@@ -52,6 +52,8 @@ class TicketController extends Controller
         $ticket = Ticket::create($request->except('_token') + ['creator_id' => Auth::id()]);
         if(isset($ticket->email_uid)) {
             event(new TicketCreated($ticket));
+            $imap = new IMAP(Auth::user());
+            $imap->setSeenFlag($ticket->email_uid);
         }
         return redirect(route('projects.show', ['project' => $request->input('project_id')]));
     }
@@ -118,8 +120,8 @@ class TicketController extends Controller
     public function getMailBody($id)
     {
         //obsłuzyc brak maila
-        $emailGetter = new EmailGetter(Auth::user());
-        $email = $emailGetter->getMessageByUid($id);
+        $imap = new IMAP(Auth::user());
+        $email = $imap->getMessageByUid($id);
         return view('ticket.mail-body', ['email' => $email]);
     }
 

@@ -28,10 +28,8 @@ class HomeController extends Controller
     public function index()
     {
   
-      
-            $emailGetter = new EmailGetter(Auth::user());
-            $emails = $emailGetter->getUnseenMessages();
-           
+        $emailGetter = new EmailGetter(Auth::user());
+        $emails = $emailGetter->getUnseenMessages();
 
         return view('home', ['emails' => $emails]);
     }

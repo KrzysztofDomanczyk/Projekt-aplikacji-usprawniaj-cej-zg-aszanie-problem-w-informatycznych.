@@ -19,6 +19,8 @@ class IMAP
     private $oClient;
     private $mainFolder = "INBOX";
     private $oFolder;
+    CONST SEEN_FLAG = "Seen";
+    CONST UNSEEN_FLAG = "Unseen";
 
     public function __construct($user)
     {
@@ -80,12 +82,12 @@ class IMAP
     public function setSeenFlag($email_uid) : void
     {
         $oMessage = $this->oFolder->getMessage($email_uid);
-        $oMessage->setFlag(['Seen']);
+        $oMessage->setFlag([self::SEEN_FLAG]);
     }
 
     public function setUnseenFlag($email_uid) : void
     {
         $oMessage = $this->oFolder->getMessage($email_uid);
-        $oMessage->setFlag(['Unseen']);
+        $oMessage->setFlag([self::UNSEEN_FLAG]);
     }
 }

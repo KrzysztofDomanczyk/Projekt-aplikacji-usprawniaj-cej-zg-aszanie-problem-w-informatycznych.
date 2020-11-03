@@ -134,9 +134,8 @@ class TicketController extends Controller
     {
         $ticket = Ticket::where('id', $id)->get()->first();
         if ($ticket->userHasAccess(Auth::user())) {
-            return view('ticket.body', ['ticket' => $ticket]);
+            return view('ticket.body', ['body_mail' => $ticket->body_mail]);
         }
-        
     }
 
 }

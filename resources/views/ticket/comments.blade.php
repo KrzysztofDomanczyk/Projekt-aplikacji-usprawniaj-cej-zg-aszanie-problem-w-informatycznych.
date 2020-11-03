@@ -75,9 +75,26 @@
                     <div class="tab-pane  @if ($loop->first)  active  @endif" id="message{{$message->id}}"
                         role="tabpanel">
                         <p><strong>Content:</strong></p>
-                        <p>{{$message->content}}</p>
+                        <iframe class='iframe-message w-100' src="{{$message->getUrlBody()}}" frameborder="0"></iframe>
+                        <a href="{{$message->getUrlBody()}}" target="_blank">Preview</a>
                     </div>
                     @endforeach
+                    <script type="application/javascript">
+                        $(document).ready(function(){
+                            $(".list-group-item.list-group-item-action").click(function() {
+                                $('.iframe-message').each(function() {
+                                    this.contentWindow.location.reload(true);
+                                });
+                               
+                            });
+                            $('.iframe-message').load(function() {
+                                    this.style.height =
+                                    this.contentWindow.document.body.offsetHeight + 'px';
+                            });
+                        });
+
+                      
+                    </script>
                 </div>
             </div>
             @endif

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Events\TicketCreated;
 use App\Libraries\Mail\IMAP;
+use App\Libraries\Mail\TicketMessageCatcher;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\Email;
@@ -27,10 +28,22 @@ class HomeController extends Controller
      */
     public function index()
     {
-  
+        $catcher = new TicketMessageCatcher();
+        $catcher->catch();
+        
+
         $imap = new IMAP(Auth::user());
         $emails = $imap->getUnseenMessages();
 
         return view('home', ['emails' => $emails]);
     }
+
+    // public function index()
+    // {
+  
+    //     $imap = new IMAP(Auth::user());
+    //     $emails = $imap->getUnseenMessages();
+
+    //     return view('home', ['emails' => $emails]);
+    // }
 }

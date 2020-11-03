@@ -13,4 +13,9 @@ class TicketMessage extends Model
     {
         return $this->belongsTo(Ticket::class);
     }
+
+    public function getUrlBody()
+    {
+        return route('ticketMessages.body', ['id' => $this->id]);
+    }
 }

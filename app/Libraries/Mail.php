@@ -11,9 +11,11 @@ class Mail
     private $date;
     private $from;
     private $body;
+    public $source_mail;
  
     public function __construct($oMessage)
     {
+        $this->source_mail = $oMessage;
         $this->setUid($oMessage->getUid());
         $this->setBody($this->getAppropriateBody($oMessage));
         $this->setDate($oMessage->getDate());

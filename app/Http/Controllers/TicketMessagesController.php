@@ -113,4 +113,13 @@ class TicketMessagesController extends Controller
     {
         //
     }
+
+    public function showBody($id)
+    {
+        $ticketMessage = TicketMessage::find($id);
+        if ($ticketMessage->ticket->userHasAccess(Auth::user())) {
+            return view('ticket.body', ['body_mail' => $ticketMessage->content]);
+        }
+    }
 }
+

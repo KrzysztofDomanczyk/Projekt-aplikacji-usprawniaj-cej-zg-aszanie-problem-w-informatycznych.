@@ -10909,3 +10909,7 @@ body {
   border: none;
 }
 
+.iframe-message {
+  min-height: 200px !important;
+}
+

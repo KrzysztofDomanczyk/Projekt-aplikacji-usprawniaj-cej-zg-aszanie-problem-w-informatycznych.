@@ -40,5 +40,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('ticketMessages', 'TicketMessagesController');
     Route::resource('projects', 'ProjectController');
     Route::post('ticketMessage', 'TicketMessagesController@storeViaPanel')->name('ticketMessages.storeViaPanel');
+    Route::get('/ticketMessages/body/{id}', 'TicketMessagesController@showBody')->name('ticketMessages.body');
 });
 

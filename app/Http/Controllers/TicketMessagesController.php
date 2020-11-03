@@ -53,15 +53,15 @@ class TicketMessagesController extends Controller
         }
 
         $request->validate($rules);
-        $this->store($request, $ticket);
-        
+        $this->sendMessage($ticket, $request);
+        $this->store($request);
+
         return back()->with('success','Message sent correctly.');
     }
 
-    public function store($request, $ticket)
+    public function store($request)
     {
-        $this->sendMessage($ticket, $request);
-        $ticket = TicketMessage::create($request->except('_token') + ['sender_email' => Auth::user()->email]);   
+        TicketMessage::create($request->except('_token') + ['sender_email' => Auth::user()->email]);   
     }
 
     public function sendMessage($ticket, $request) : void

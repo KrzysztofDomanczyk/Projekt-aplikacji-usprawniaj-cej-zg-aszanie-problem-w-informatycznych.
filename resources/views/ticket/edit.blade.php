@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -11,9 +10,9 @@
         $('#startDate').datepicker();
     });
 </script> --}}
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Edit ticket') }}</div>
                 <div class="card-body">
@@ -22,7 +21,7 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <form action="{{route('ticket.update', ['ticket' => $ticket->id])}}"   method="post">
+                    <form action="{{route('ticket.update', ['ticket' => $ticket->id])}}" method="post">
                         @csrf
                         {{ method_field('PATCH') }}
                         <div class="form-group">
@@ -31,11 +30,11 @@
                             <select name="project_id" class="form-control" id="project">
                                 @foreach($projects as $project)
 
-                                    @if($project->id == $ticket->project_id)
-                                        <option value="{{$project->id}}" selected>{{$project->name}}</option>
-                                    @else
-                                        <option value="{{$project->id}}">{{$project->name}}</option>
-                                    @endif
+                                @if($project->id == $ticket->project_id)
+                                <option value="{{$project->id}}" selected>{{$project->name}}</option>
+                                @else
+                                <option value="{{$project->id}}">{{$project->name}}</option>
+                                @endif
                                 @endforeach
                             </select>
 
@@ -50,9 +49,9 @@
 
                         <div class="form-group">
                             <label for="exampleInputEmail1">Subject mail</label>
-                         
-                            <input type="text" class="form-control" name="subject_mail" value="{{$ticket->subject_mail}}"
-                                id="exampleInputEmail1" aria-describedby="emailHelp">
+
+                            <input type="text" class="form-control" name="subject_mail"
+                                value="{{$ticket->subject_mail}}" id="exampleInputEmail1" aria-describedby="emailHelp">
 
                         </div>
 
@@ -64,7 +63,7 @@
                                             See body mail:
                                         </h5>
                                     </div>
-                                   
+
                                     <div id="collapseOne" class="collapse show" aria-labelledby="headingOne"
                                         data-parent="#accordion">
                                         <div class="card-body">
@@ -72,7 +71,7 @@
                                                 style="height:400px"></iframe>
                                         </div>
                                     </div>
-                            
+
                                 </div>
                             </div>
                         </div>
@@ -107,9 +106,9 @@
                         <div class="form-group">
                             <label for="exampleFormControlSelect1">Status</label>
                             <select class="form-control" name="status" id="exampleFormControlSelect1">
-                                <option  @if($ticket->status == "To do") selected @endif>To do</option>
-                                <option  @if($ticket->status == "In progress") selected @endif>In progress</option>
-                                <option  @if($ticket->status == "Completed") selected @endif>Completed</option>
+                                <option @if($ticket->status == "To do") selected @endif>To do</option>
+                                <option @if($ticket->status == "In progress") selected @endif>In progress</option>
+                                <option @if($ticket->status == "Completed") selected @endif>Completed</option>
                             </select>
                         </div>
 
@@ -118,6 +117,8 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+                @include('ticket.comments')
+        </div>
     </div>
-</div>
-@endsection
+    @endsection

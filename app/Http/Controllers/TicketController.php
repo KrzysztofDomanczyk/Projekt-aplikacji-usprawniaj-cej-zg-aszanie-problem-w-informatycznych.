@@ -6,6 +6,7 @@ use App\Events\TicketCreated;
 use App\Libraries\Mail\IMAP;
 use App\Project;
 use App\Ticket;
+use App\TicketMessage;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,9 +79,13 @@ class TicketController extends Controller
      */
     public function edit($ticket)
     {
+  
         $ticket = Ticket::where('id', $ticket)->get()->first();
         if ($ticket->userHasAccess(Auth::user())) {
-            return view('ticket.edit', ['ticket' => $ticket, 'projects' => Auth::user()->projects]);
+            return view('ticket.edit', [
+                'ticket' => $ticket, 
+                'projects' => Auth::user()->projects
+            ]);
         }
         abort(404);
     }

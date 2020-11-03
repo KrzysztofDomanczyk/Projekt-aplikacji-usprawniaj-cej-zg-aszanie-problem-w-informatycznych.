@@ -54,5 +54,28 @@ class DatabaseSeeder extends Seeder
             'project_id' => '1',
             'creator_id' => 1,
         ]);
+
+        $faker = Faker\Factory::create();
+        DB::table('ticket_messages')->insert([
+            'content' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+            'sender_email' => $faker->freeEmail(),
+            'created_at' => Carbon::now()->addMinutes(2)->format('Y-m-d H:i:s'),
+            'ticket_id' => 1,
+        ]);
+
+
+        DB::table('ticket_messages')->insert([
+            'content' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+            'sender_email' => $faker->freeEmail(),
+            'created_at' => Carbon::now()->addMinutes(4)->format('Y-m-d H:i:s'),
+            'ticket_id' => 1,
+        ]);
+
+        DB::table('ticket_messages')->insert([
+            'content' => $faker->realText($maxNbChars = 200, $indexSize = 2),
+            'sender_email' => $faker->freeEmail(),
+            'created_at' => Carbon::now()->addMinutes(6)->format('Y-m-d H:i:s'),
+            'ticket_id' => 1,
+        ]);
     }
 }

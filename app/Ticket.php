@@ -18,6 +18,11 @@ class Ticket extends Model
         'email_uid', 'email'
     ];
 
+    public function messages()
+    {
+        return $this->hasMany(TicketMessage::class)->orderBy('created_at', 'desc');
+    }
+
     public function creator()
     {
         return $this->belongsTo(User::class);

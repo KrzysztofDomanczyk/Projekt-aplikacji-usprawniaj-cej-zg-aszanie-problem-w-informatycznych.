@@ -79,7 +79,7 @@
                                             @forelse ($project->tickets as $ticket)
                                             <tr>
                                                 <th scope="row">1</th>
-                                                <td>{{$ticket->name}}</td>
+                                                <td><a href="{{route('ticket.edit', ['ticket'=> $ticket->id, 'project' => $project->id])}}">{{$ticket->name}}</a></td>
                                                 <td>{{$ticket->created_at}}</td>
                                                 <td>{{$ticket->creator->email}}</td>
                                                 <td>{{$ticket->status}}</td>

@@ -6,11 +6,11 @@ namespace App\Libraries;
 
 class Mail
 {
-    private $uid;
-    private $subject;
-    private $date;
-    private $from;
-    private $body;
+    public $uid;
+    public $subject;
+    public $date;
+    public $from;
+    public $body;
     public $source_mail;
  
     public function __construct($oMessage)

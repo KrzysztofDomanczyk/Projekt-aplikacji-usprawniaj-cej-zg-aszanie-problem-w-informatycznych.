@@ -4,7 +4,7 @@
         <div class="card-body">
             <h5 class="card-title">Users: </h5>
 
-            <button type="button" class="btn btn-secondary d-block w-100 mb-3" data-toggle="modal"
+            <button type="button" class="btn btn-outline-secondary d-block w-100 mb-3" data-toggle="modal"
                 data-target="#exampleModal">
                 + Add user
             </button>
@@ -35,7 +35,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" v-on:click="addUser()" class="btn btn-primary">Save changes</button>
+                            <button type="button" v-on:click="addUser()" class="btn btn-outline-primary">Save changes</button>
                         </div>
 
                     </div>

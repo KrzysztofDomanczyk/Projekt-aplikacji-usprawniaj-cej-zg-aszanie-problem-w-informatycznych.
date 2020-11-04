@@ -40,9 +40,9 @@
 
                             @if(isset($email))
                             <a href="{{route('projects.create', ['redirect' => $email->getUid() ])}}"
-                                class="btn btn-secondary d-block mt-3">+ Project not exist? Create new!</a>
+                                class="btn btn-outline-light d-block mt-3">+ Project not exist? Create new!</a>
                             @else
-                            <a href="{{route('projects.create')}}" class="btn btn-secondary d-block mt-3">+ Project not
+                            <a href="{{route('projects.create')}}" class="btn btn-outline-light d-block mt-3">+ Project not
                                 exist? Create new!</a>
                             @endif
                         </div>
@@ -112,7 +112,7 @@
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary">Edit</button>
+                        <button type="submit" class="btn btn-outline-primary d-block w-100">Edit</button>
                     </form>
                 </div>
             </div>

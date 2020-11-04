@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">{{ __('My projects') }} <a href="{{route('projects.create', ['redirect' => 'new'])}}" class="btn btn-success d-block mt-3">+ Add project</a> </div>
+                <div class="card-header">{{ __('My projects') }} <a href="{{route('projects.create', ['redirect' => 'new'])}}" class="btn btn-outline-success d-block mt-3">+ Add project</a> </div>
 
                 <div class="card-body">
                     @if(session()->has('success'))
@@ -18,7 +18,7 @@
                         {{ session('status') }}
                     </div>
                     @endif
-                    <table class="table ">
+                    <table class="table table-dark ">
                             <thead>
                               <tr>
                                 <th scope="col">#</th>

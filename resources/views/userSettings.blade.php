@@ -20,11 +20,13 @@
                             </ul>
                         </div>
                     @endif
-                        <h5 class="card-title">IMAP settings</h5>
+                        <h5 class="card-title">IMAP settings<br></h5>
+                        
+                        
                     <form action="{{route('changeImap')}}" method="POST">
                             @csrf
                                 <div class="form-group">
-                                  <label for="host">Host:</label>
+                                  <label for="host">*Host:</label>
                                 <input type="text" class="form-control"  name="host_imap" id="host" aria-describedby="emailHelp" placeholder="imap.gmail.com" value="{{$user->host_imap}}">
                                 </div>
                                 
@@ -38,6 +40,7 @@
                                 </div>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                               </form>
+                              <small class="mt-3 d-block">*If you want use gmail, you have to set "Less secure apps" in gmail account settings.</small>
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
                             {{ session('status') }}

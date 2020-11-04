@@ -28,22 +28,33 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $catcher = new TicketMessageCatcher();
-        $catcher->catch();
-        
-
-        $imap = new IMAP(Auth::user());
-        $emails = $imap->getUnseenMessages();
-
-        return view('home', ['emails' => $emails]);
+        return view('home');
     }
 
-    // public function index()
-    // {
-  
-    //     $imap = new IMAP(Auth::user());
-    //     $emails = $imap->getUnseenMessages();
+    public function catchTicketMessage(){
+        try {
+            $catcher = new TicketMessageCatcher();
+            $catcher->catch();
+        } catch (\Throwable  $e) {
+            return response()->json(['message' => $e->getMessage()], 401);
+        }
+    }
 
-    //     return view('home', ['emails' => $emails]);
-    // }
+    public function getUnseenMessages()
+    {
+        try {
+            $imap = new IMAP(Auth::user());
+            $emails = $imap->getUnseenMessages();
+        } catch (\Throwable  $e) {
+            return response()->json(['message' => $e->getMessage()], 401);;
+        }
+
+        return response()->json($emails);
+    }
+
+    public function markAsSeen($uid)
+    {
+        $imap = new IMAP(Auth::user());
+        $imap->setSeenFlag($uid);
+    }
 }

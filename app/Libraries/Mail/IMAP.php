@@ -34,13 +34,9 @@ class IMAP
             'protocol'      => 'imap'
         ]);  
 
-        try {
+        
             $this->oClient->connect();
-        } catch (\Throwable  $e) {
-            Redirect::to(route('userSettings'))
-            ->with('error', 'Error IMAP connection - please check IMAP credentials or contact with support - k.domanczyk@gmail.com <br> '. $e->getMessage() .'')
-            ->send();
-        }
+       
       
       
         $aFolder = $this->oClient->getFolders();

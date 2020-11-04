@@ -13,10 +13,14 @@ class TicketMessageCatcher
     CONST REGEX_IS_TICKET_MESSAGE = '/\[IT#[0-9]*\]/';
     CONST REGEX_ID_TICKET_MESSAGE = '/-?(?:[0-9]+(?:\.[0-9]*)?|(?:[0-9]+)?\.[0-9]+)/';
     CONST SEEN_FLAG = "Seen";
-    public function __construct()
+    public function __construct($data = null)
     {
-        $this->imap = new IMAP(Auth::user());
-        $this->emails = $this->imap->getUnseenMessages();
+        if ($data == null) {
+            $this->imap = new IMAP(Auth::user());
+            $this->emails = $this->imap->getUnseenMessages();
+        } else {
+            $this->emails = $data;
+        }
     }
 
     public function catch()

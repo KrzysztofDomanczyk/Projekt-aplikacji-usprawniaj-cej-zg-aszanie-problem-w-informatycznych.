@@ -19,7 +19,7 @@
                         <strong>{{ $message }}</strong>
                     </div>
                 @endif
-                <button type="button" class="btn w-100 d-block btn-light" data-toggle="modal"
+                <button type="button" class="btn w-100 d-block btn-outline-light" data-toggle="modal"
                     data-target=".bd-example-modal-lg">Send message</button>
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog"
                     aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -50,7 +50,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary"
                                     data-dismiss="modal">Close</button>
-                                <button id="btnSendMessage" type="button" class="btn btn-primary">Send message</button>
+                                <button id="btnSendMessage" type="button" class="btn btn-outline-primary">Send message</button>
                             </div>
                         </div>
                     </div>

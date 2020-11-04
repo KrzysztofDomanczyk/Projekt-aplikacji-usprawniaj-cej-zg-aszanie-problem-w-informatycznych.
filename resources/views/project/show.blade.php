@@ -10,7 +10,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header"><strong>{{$project->name}}</strong><a href="{{route('ticket.create')}}"
-                        class="btn btn-success d-block mt-3">+ Add ticket</a>
+                        class="btn btn-outline-success d-block mt-3">+ Add ticket</a>
                         
                     </div>
                        
@@ -64,7 +64,7 @@
                                             {{ session()->get('success') }}
                                         </div>
                                     @endif
-                                    <table class="table ">
+                                    <table class="table table-dark">
                                         <thead>
                                             <tr>
                                                 <th scope="col">#</th>

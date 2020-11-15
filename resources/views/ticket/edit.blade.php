@@ -118,6 +118,13 @@
             </div>
         </div>
         <div class="col-md-6">
+                
+           
+
+                            
+                            <add-user-ticket :ticketid="{{$ticket->id}}"></add-user-ticket>
+                  
+         
                 @include('ticket.comments')
         </div>
     </div>

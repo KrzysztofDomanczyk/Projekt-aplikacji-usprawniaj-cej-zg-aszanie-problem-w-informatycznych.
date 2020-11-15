@@ -52,6 +52,19 @@ class User extends Authenticatable
         return $this->belongsToMany(Project::class);
     }
 
+    public function tickets()
+    {
+        return $this->belongsToMany(Ticket::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class)
+            ->orderBy('seen', 'desc')
+            ->orderBy('created_at', 'ASC');
+    }
+
+
     public function isAttachedToProject($projectId)
     {
         foreach ($this->projects as $project) {

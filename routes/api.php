@@ -20,14 +20,20 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::middleware('auth:api')->get('/users', function (Request $request) {
-
     return response()->json(['name' => Auth::User()->name]);
-
 });
 
 Route::middleware('auth:api')->post('/project/add-user', 'ProjectController@addUserToProject')->name('addUserToProject');
 Route::middleware('auth:api')->post('/project/delete-user', 'ProjectController@deleteUserToProject')->name('deleteUserToProject');
 Route::middleware('auth:api')->get('/project/users-list/{id}', 'ProjectController@userList')->name('userList');
+
+Route::middleware('auth:api')->post('/ticket/add-user', 'TicketController@addUserToTicket')->name('addUserToTicket');
+Route::middleware('auth:api')->post('/ticket/delete-user', 'TicketController@deleteUserToTicket')->name('deleteUserToTicket');
+Route::middleware('auth:api')->get('/ticket/users-list/{id}', 'TicketController@userList')->name('userList');
+
+
 Route::middleware('auth:api')->get('/dashboard-emails', 'HomeController@getUnseenMessages')->name('getUnseenMessages');
 Route::middleware('auth:api')->get('/mark-as-seen/{id}', 'HomeController@markAsSeen')->name('markAsSeen');
 Route::middleware('auth:api')->get('/catch-ticket-messages', 'HomeController@catchTicketMessage')->name('catchTicketMessage');
+Route::middleware('auth:api')->get('/get-notifications', 'NotificationsController@index')->name('getNotifications');
+Route::middleware('auth:api')->get('/mark-as-seen-notification/{id}', 'NotificationsController@update')->name('markAsSeenNotification');

@@ -14,6 +14,10 @@ body{
     background-color: #232528 !important;
 }
 
+.green-color{
+  color:$green;
+}
+
 a {
     color: $green;
     
@@ -167,3 +171,40 @@ iframe{
     }
   }
   
+  $theme-colors: (
+  "primary": $green !important,
+
+);
+
+#notification {
+  .dropdown-item{
+    min-width:300px !important;
+    background-color: #3f4042;
+    color:white;
+  }
+  .dropdown-menu {
+    background-color: #3f4042;
+  }
+
+  .dropdown-item:hover, .dropdown-item:focus {
+    color: #ffffff;
+    text-decoration: none;
+    background-color: transparentize($green, 0.3)
+  }
+  #counter {
+    position: absolute;
+    width: 20px;
+    padding: 0.1em;
+    display: block;
+    color: white;
+    top: 6px;
+    left: -8px;
+    font-size: 0.7em;
+    background: #bb1414;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
+  }
+ 
+
+}

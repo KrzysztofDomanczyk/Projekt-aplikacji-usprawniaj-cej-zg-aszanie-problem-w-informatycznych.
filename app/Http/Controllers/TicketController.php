@@ -138,4 +138,37 @@ class TicketController extends Controller
         }
     }
 
+    public function userList($id)
+    {
+        $usersTicket = Ticket::find($id)->users()->pluck('email');
+        return response()->json( $usersTicket);
+    }
+
+    public function addUserToTicket(Request $request)
+    {   
+
+        $ticket = Ticket::find($request->input('ticketid'));
+        if ($ticket->userHasAccess(Auth::user())) {
+            $response = $ticket->addUser($request->input('user'));
+        } else {
+            $response = ['status'=>'error', "msg" => "You have no access to this ticket"];
+            response()->json($response);
+        }
+
+        return response()->json($response);
+    }
+
+    public function deleteUserToTicket(Request $request)
+    {   
+        $ticket = Ticket::find($request->input('ticketid'));
+        if ($ticket->userHasAccess(Auth::user())) {
+            $response = $ticket->deleteUser($request->input('user'));
+        } else {
+            $response = ['status'=>'error', "msg" => "You have no access to this ticket"];
+            response()->json($response);
+        }
+
+        return response()->json('$response');
+    }
+
 }

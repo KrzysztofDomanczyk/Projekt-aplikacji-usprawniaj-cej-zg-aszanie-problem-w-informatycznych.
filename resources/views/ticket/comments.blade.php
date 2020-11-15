@@ -1,7 +1,9 @@
 
 <div class="card">
-    <div class="card-header">{{ __('Messages') }}</div>
-    <div class="card-body">
+    <div class="card-header d-flex" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">
+            <span style="text-align:left"> Messages</span> <span class="d-block ml-auto green-color"><i class="fas fa-chevron-down"></i></span>    
+    </div>
+    <div class="card-body collapse multi-collapse" id="multiCollapseExample2">
         <div class="row">
             <div class="col-12 mb-4">
                 @if ($errors->any())

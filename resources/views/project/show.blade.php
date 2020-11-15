@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                             @if(Auth::id() == $project->creator->id)
-                                <add-user :projectid="{{$project->id}}"></add-user>
+                                <add-user-project :projectid="{{$project->id}}"></add-user-project>
                             @else 
                             <div class="card mt-4">
                                     <div class="card-body">

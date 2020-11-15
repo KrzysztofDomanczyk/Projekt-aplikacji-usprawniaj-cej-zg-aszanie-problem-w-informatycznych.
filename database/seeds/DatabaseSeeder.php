@@ -77,5 +77,21 @@ class DatabaseSeeder extends Seeder
             'created_at' => Carbon::now()->addMinutes(6)->format('Y-m-d H:i:s'),
             'ticket_id' => 1,
         ]);
+
+        DB::table('notifications')->insert([
+            'content' => $faker->realText($maxNbChars = 30, $indexSize = 2),
+            'target' => $faker->url(),
+            'created_at' => Carbon::now()->addMinutes(6)->format('Y-m-d H:i:s'),
+            'seen' => true,
+            'user_id' => 1,
+        ]);
+
+        DB::table('notifications')->insert([
+            'content' => $faker->realText($maxNbChars = 30, $indexSize = 2),
+            'target' => $faker->url(),
+            'created_at' => Carbon::now()->addMinutes(6)->format('Y-m-d H:i:s'),
+            'seen' => false,
+            'user_id' => 1,
+        ]);
     }
 }

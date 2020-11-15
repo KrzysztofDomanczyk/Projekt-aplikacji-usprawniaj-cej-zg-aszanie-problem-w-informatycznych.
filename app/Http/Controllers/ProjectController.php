@@ -19,12 +19,6 @@ class ProjectController extends Controller
         return view('project.list', ['user' => Auth::user()]);
     }
 
-    public function userList($id)
-    {
-        $usersProject = Project::find($id)->users()->pluck('email');
-        return response()->json( $usersProject);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -106,6 +100,12 @@ class ProjectController extends Controller
            return redirect(route('projects.index'))->with('success', 'Project deleted');
         }
      
+    }
+
+    public function userList($id)
+    {
+        $usersProject = Project::find($id)->users()->pluck('email');
+        return response()->json( $usersProject);
     }
 
     public function addUserToProject(Request $request)

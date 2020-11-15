@@ -18,7 +18,7 @@ class CreateNotificationsTable extends Migration
             $table->timestamps();
             $table->string('content');
             $table->string('target');
-            $table->boolean('seen');
+            $table->boolean('seen')->default(true);
             $table->unsignedInteger('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

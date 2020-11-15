@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Events\TicketCreated;
 use App\Libraries\Mail\IMAP;
 use App\Libraries\Mail\TicketMessageCatcher;
+use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use PharIo\Manifest\Email;
@@ -28,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+      
         return view('home');
     }
 

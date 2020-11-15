@@ -59,7 +59,6 @@
                  this.countNew = this.notifications.filter((item) =>  item.seen == true).length;
             },
             markAsSeen: function ($id) {
-                alert('test');
                 axios.get('/api/mark-as-seen-notification/' + $id)
                 .then(function (response) {
                   self.getNotifications();

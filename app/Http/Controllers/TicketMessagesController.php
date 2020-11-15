@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\RecivedTicketMessage;
 use App\Mail\TicketMessageSent;
 use App\Ticket;
 use App\TicketMessage;
@@ -61,7 +62,7 @@ class TicketMessagesController extends Controller
 
     public function store($request)
     {
-        TicketMessage::create($request->except('_token') + ['sender_email' => Auth::user()->email]);   
+        TicketMessage::create($request->except('_token') + ['sender_email' => Auth::user()->email]); 
     }
 
     public function sendMessage($ticket, $request) : void

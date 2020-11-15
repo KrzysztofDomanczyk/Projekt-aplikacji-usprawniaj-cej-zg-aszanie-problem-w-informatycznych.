@@ -2372,7 +2372,6 @@ __webpack_require__.r(__webpack_exports__);
       }).length;
     },
     markAsSeen: function markAsSeen($id) {
-      alert('test');
       axios.get('/api/mark-as-seen-notification/' + $id).then(function (response) {
         self.getNotifications();
       });

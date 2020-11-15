@@ -2,6 +2,7 @@
 
 namespace App\Libraries\Mail;
 
+use App\Events\RecivedTicketMessage;
 use App\TicketMessage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
@@ -42,11 +43,13 @@ class TicketMessageCatcher
     private function createTicketMesssage($email)
     {
         $idTicket = $this->getIdTicket($email->getSubject());
-        TicketMessage::create([
+        $ticketMessage = TicketMessage::create([
             'sender_email' => $email->getNameFrom(),
             'content' => $email->getBody(),
             'ticket_id' => $idTicket
         ]); 
+
+        event(new RecivedTicketMessage($ticketMessage));  
     }
 
     private function getIdTicket($subject)
